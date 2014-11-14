@@ -25,9 +25,6 @@ object ScalaBuild extends sbt.Build {
             ),
             base = file("."))
 
-  // https://github.com/sbt/sbt-assembly/issues/92
-
-
   def project(id: String, base: File, settings: Seq[Project.Setting[_]] = Nil) =
     Project(id = id,
             base = base,
@@ -61,7 +58,7 @@ object Shared {
     publishArtifact in Test := false,
     pomIncludeRepository := { x => false },
     scalaVersion := "2.10.4",
-    version := "1.0.0-SNAPSHOT",
+    version := "1.0.4-SNAPSHOT",
     crossScalaVersions := Seq("2.9.2", "2.9.3", "2.10.4"),
     scalacOptions := Seq("-deprecation", "-unchecked"), // , "-Xexperimental"),
     shellPrompt := { (state: State) => "[%s]$ " format(Project.extract(state).currentProject.id) },
