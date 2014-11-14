@@ -19,17 +19,13 @@ object ScalaBuild extends sbt.Build {
               libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value,
               libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value,
               libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value % "scala-tool",
-              libraryDependencies += "org.scala-lang" % "jline" % scalaVersion.value,
-            // https://github.com/sbt/sbt-assembly/issues/92
-              mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
-                {
-                  case PathList("org", "fusesource", "jansi", xs @ _*) => MergeStrategy.first
-                  case x => old(x)
-                }
-              },
+              // https://github.com/sbt/sbt-assembly/issues/92
+              libraryDependencies += ("org.scala-lang" % "jline" % scalaVersion.value).exclude("org.fusesource.jansi", "jansi"),
               publishArtifact := false
             ),
-            base = file(".")) 
+            base = file("."))
+
+  // https://github.com/sbt/sbt-assembly/issues/92
 
 
   def project(id: String, base: File, settings: Seq[Project.Setting[_]] = Nil) =
